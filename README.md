@@ -1,20 +1,20 @@
-# 🎨 Portfolio Generator
+#  Portfolio Generator
 
 Générateur de portfolio automatique : l'utilisateur remplit un formulaire et son portfolio est généré instantanément avec un **modèle choisi au hasard**.
 
 Projet réalisé en groupe de 3 avec **HTML**, **JavaScript** et **Tailwind CSS v4** (via **Vite**).
 
-## ✨ Fonctionnalités
+##  Fonctionnalités
 
-- 📝 Formulaire complet : identité, photo, compétences, projets (ajout dynamique), contacts
-- 👀 **Aperçu en direct** pendant la saisie
-- 🎲 **4 modèles aléatoires** : Minimal, Moderne, Sombre, Créatif
-- 🔄 Bouton **« Changer de modèle »** qui garde les mêmes données
-- 📄 **Export en PDF** (via la fenêtre d'impression du navigateur)
-- 📱 Interface responsive (ordinateur, tablette, téléphone)
-- 🔒 Textes sécurisés contre les injections de code (XSS)
+-  Formulaire complet : identité, photo, compétences, projets (ajout dynamique), contacts
+-  **Aperçu en direct** pendant la saisie
+-  **4 modèles aléatoires** : Minimal, Moderne, Sombre, Créatif
+-  Bouton **« Changer de modèle »** qui garde les mêmes données
+-  **Export en PDF** (via la fenêtre d'impression du navigateur)
+-  Interface responsive (ordinateur, tablette, téléphone)
+-  Textes sécurisés contre les injections de code (XSS)
 
-## 🚀 Lancer le projet en local
+##  Lancer le projet en local
 
 Prérequis : [Node.js](https://nodejs.org) version 20 ou plus.
 
@@ -24,7 +24,7 @@ npm run dev      # lance le site sur http://localhost:5173
 npm run build    # crée la version finale dans le dossier dist/
 ```
 
-## 📂 Structure
+##  Structure
 
 ```
 portfolio-generator/
@@ -50,9 +50,9 @@ portfolio-generator/
 2. Renommer l'objet exporté et changer `nom` et le HTML
 3. Dans `src/generator.js` : l'importer et l'ajouter au tableau `MODELES`
 
-⚠️ Toujours écrire les classes Tailwind en entier (`bg-red-500`, jamais `"bg-" + couleur`).
+ Toujours écrire les classes Tailwind en entier (`bg-red-500`, jamais `"bg-" + couleur`).
 
-## 👥 Répartition des tâches
+##  Répartition des tâches
 
 | Membre | Rôle |
 |---|---|
@@ -60,7 +60,7 @@ portfolio-generator/
 | Membre 2 | Modèles de portfolio (`src/templates/`) |
 | Membre 3 | Générateur, boutons, export PDF, Git, déploiement Vercel (`generator.js`, `main.js`) |
 
-## 🌿 Versionning (Git)
+##  Versionning (Git)
 
 ### Branches
 - `main` → version stable, déployée automatiquement sur Vercel
@@ -131,7 +131,7 @@ Numérotation `MAJEUR.MINEUR.CORRECTIF` :
 - `v1.1.0` → nouvelle fonctionnalité (ex : nouveau modèle)
 - `v2.0.0` → gros changement
 
-## ☁️ Déploiement sur Vercel (gratuit)
+##  Déploiement sur Vercel (gratuit)
 
 1. Aller sur [vercel.com](https://vercel.com) et se connecter avec GitHub
 2. **Add New → Project** → importer `portfolio-generator`
@@ -144,8 +144,8 @@ Chaque `push` sur `main` met le site à jour automatiquement, et chaque Pull Req
 
 🔗 Site en ligne : _ajouter le lien Vercel ici_
 
-## 📄 Comment exporter en PDF
+##  Comment exporter en PDF
 
-Cliquer sur **📄 Exporter en PDF**, puis dans la fenêtre d'impression :
+Cliquer sur ** Exporter en PDF**, puis dans la fenêtre d'impression :
 - Destination : **Enregistrer au format PDF**
 - Dans « Plus de paramètres », cocher **Graphiques d'arrière-plan** si les couleurs n'apparaissent pas
