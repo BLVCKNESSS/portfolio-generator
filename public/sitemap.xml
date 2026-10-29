@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- =====================================================================
+     sitemap.xml — Plan du site pour les moteurs de recherche
+     ---------------------------------------------------------------------
+     Liste les pages du site que l'on veut voir dans Google.
+     Il est annoncé dans robots.txt (ligne "Sitemap:") et peut aussi être
+     envoyé directement dans Google Search Console.
+
+     ➜ REMPLACEZ "portfolio-generator.vercel.app" par votre vraie adresse.
+     ➜ Mettez à jour <lastmod> quand vous publiez une nouvelle version.
+     ===================================================================== -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <!-- Adresse complète de la page (avec https://) -->
+    <loc>https://portfolio-generator.vercel.app/</loc>
+    <!-- Date de la dernière modification (format AAAA-MM-JJ) -->
+    <lastmod>2026-10-29</lastmod>
+  </url>
+</urlset>

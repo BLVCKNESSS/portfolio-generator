@@ -1,0 +1,22 @@
+# =====================================================================
+# .gitignore — Fichiers et dossiers que Git ne doit PAS suivre
+# =====================================================================
+
+# Les dépendances installées par "npm install" (très lourdes).
+# Chaque membre les réinstalle lui-même avec "npm install".
+node_modules/
+
+# Le dossier généré par "npm run build" (Vercel le recrée lui-même).
+dist/
+
+# Fichiers système et d'éditeurs
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Fichiers de logs
+*.log
+
+# Dossier local de Vercel
+.vercel

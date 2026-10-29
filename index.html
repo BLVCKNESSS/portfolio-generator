@@ -1,0 +1,235 @@
+<!doctype html>
+<!-- =====================================================================
+     index.html — Page principale du générateur de portfolio
+     ---------------------------------------------------------------------
+     Organisation de la page :
+       1. En-tête (titre de l'application)
+       2. Colonne de gauche  : le FORMULAIRE où l'utilisateur saisit ses infos
+       3. Colonne de droite  : l'APERÇU EN DIRECT du portfolio + les boutons
+                               « Changer de modèle » et « Exporter en PDF »
+
+     Astuce Tailwind : "print:hidden" = l'élément disparaît à l'impression.
+     C'est grâce à ça que le PDF ne contient QUE le portfolio.
+     ===================================================================== -->
+<html lang="fr">
+  <head>
+    <!-- Encodage des caractères (pour les accents : é, è, à…) -->
+    <meta charset="UTF-8" />
+    <!-- Rend la page responsive sur téléphone -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- ================== RÉFÉRENCEMENT (SEO) ==================
+         Ces balises sont lues par Google et les réseaux sociaux.
+         ➜ REMPLACEZ "portfolio-generator.vercel.app" par votre vraie adresse. -->
+
+    <!-- Titre affiché dans l'onglet ET en bleu dans les résultats Google.
+         Idéal : 50 à 60 caractères, avec les mots-clés importants au début. -->
+    <title>Générateur de Portfolio gratuit – Créez votre portfolio en ligne</title>
+
+    <!-- Texte gris affiché sous le titre dans Google.
+         Idéal : 140 à 160 caractères, qui donne envie de cliquer. -->
+    <meta name="description" content="Créez gratuitement votre portfolio professionnel en quelques minutes : remplissez le formulaire, choisissez parmi 4 modèles et exportez en PDF." />
+
+    <!-- Autorise Google à indexer la page et à suivre ses liens -->
+    <meta name="robots" content="index, follow" />
+
+    <!-- Adresse officielle de la page : évite que Google voie des doublons
+         (ex : avec ou sans "www", avec des paramètres dans l'URL) -->
+    <link rel="canonical" href="https://portfolio-generator.vercel.app/" />
+
+    <!-- Open Graph : aperçu quand le lien est partagé sur WhatsApp, Facebook, LinkedIn -->
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:title" content="Générateur de Portfolio gratuit" />
+    <meta property="og:description" content="Créez votre portfolio en quelques minutes et exportez-le en PDF." />
+    <meta property="og:url" content="https://portfolio-generator.vercel.app/" />
+
+    <!-- Carte d'aperçu pour X (Twitter) -->
+    <meta name="twitter:card" content="summary" />
+
+    <!-- Données structurées (JSON-LD) : décrivent l'application à Google
+         dans un format qu'il comprend parfaitement. -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Générateur de Portfolio",
+        "url": "https://portfolio-generator.vercel.app/",
+        "description": "Application gratuite pour créer un portfolio en ligne et l'exporter en PDF.",
+        "applicationCategory": "DesignApplication",
+        "operatingSystem": "Tous (navigateur web)",
+        "inLanguage": "fr",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "XAF" }
+      }
+    </script>
+    <!-- ========================================================== -->
+
+    <!-- On charge le CSS (qui contient Tailwind) -->
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+
+  <!-- bg-slate-100 = fond gris clair ; min-h-screen = au moins la hauteur de l'écran -->
+  <body class="bg-slate-100 text-slate-800 min-h-screen">
+
+    <!-- ============================ EN-TÊTE ============================ -->
+    <!-- print:hidden → l'en-tête n'apparaîtra pas dans le PDF -->
+    <header class="bg-white border-b border-slate-200 print:hidden">
+      <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+        <h1 class="text-xl font-bold">
+          <span class="text-indigo-600">Portfolio</span> Generator
+        </h1>
+        <!-- Ce badge affiche le nom du modèle actuellement utilisé (rempli par main.js) -->
+        <span id="nom-modele" class="text-sm bg-indigo-50 text-indigo-700 px-3 py-1 rounded-full">
+          Modèle : —
+        </span>
+      </div>
+    </header>
+
+    <!-- ===================== CONTENU PRINCIPAL ===================== -->
+    <!-- grid lg:grid-cols-[420px_1fr] → 2 colonnes sur grand écran
+         (420px pour le formulaire, le reste pour l'aperçu),
+         1 seule colonne sur téléphone.
+         print:block print:p-0 → à l'impression, plus de grille ni de marges -->
+    <main class="max-w-7xl mx-auto p-4 grid gap-6 lg:grid-cols-[420px_1fr] print:block print:p-0 print:max-w-none">
+
+      <!-- ======================= FORMULAIRE ======================= -->
+      <!-- lg:sticky lg:top-4 → sur grand écran, le formulaire reste visible quand on défile
+           lg:max-h-[calc(100vh-2rem)] lg:overflow-y-auto → il défile à l'intérieur s'il est trop long -->
+      <form id="formulaire"
+            class="bg-white rounded-xl shadow-sm p-5 space-y-5 print:hidden
+                   lg:sticky lg:top-4 lg:max-h-[calc(100vh-2rem)] lg:overflow-y-auto">
+
+        <!-- ---------- Section : Identité ---------- -->
+        <fieldset class="space-y-3">
+          <legend class="font-semibold text-lg mb-2">👤 Identité</legend>
+
+          <!-- Chaque champ a un attribut "name" : c'est grâce à lui
+               que form.js retrouve la valeur saisie. -->
+          <label class="block">
+            <span class="text-sm font-medium">Nom complet *</span>
+            <input name="nom" type="text" required placeholder="Ex : Marie Ngono"
+                   class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2
+                          focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+          </label>
+
+          <label class="block">
+            <span class="text-sm font-medium">Titre / Métier *</span>
+            <input name="titre" type="text" required placeholder="Ex : Développeuse web"
+                   class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2
+                          focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+          </label>
+
+          <label class="block">
+            <span class="text-sm font-medium">À propos de moi</span>
+            <textarea name="bio" rows="3" placeholder="Quelques phrases pour vous présenter…"
+                      class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2
+                             focus:outline-none focus:ring-2 focus:ring-indigo-500"></textarea>
+          </label>
+
+          <label class="block">
+            <span class="text-sm font-medium">Photo de profil</span>
+            <!-- accept="image/*" → seules les images peuvent être choisies -->
+            <input name="photo" type="file" accept="image/*"
+                   class="mt-1 block w-full text-sm file:mr-3 file:rounded-lg file:border-0
+                          file:bg-indigo-50 file:px-3 file:py-2 file:text-indigo-700
+                          hover:file:bg-indigo-100" />
+          </label>
+        </fieldset>
+
+        <!-- ---------- Section : Compétences ---------- -->
+        <fieldset class="space-y-3">
+          <legend class="font-semibold text-lg mb-2">🛠️ Compétences</legend>
+          <label class="block">
+            <span class="text-sm font-medium">Séparez-les par des virgules</span>
+            <input name="competences" type="text" placeholder="HTML, CSS, JavaScript, Tailwind"
+                   class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2
+                          focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+          </label>
+        </fieldset>
+
+        <!-- ---------- Section : Projets (liste dynamique) ---------- -->
+        <fieldset class="space-y-3">
+          <legend class="font-semibold text-lg mb-2">📁 Projets</legend>
+
+          <!-- Les blocs de projet seront ajoutés ici par JavaScript (form.js) -->
+          <div id="liste-projets" class="space-y-3"></div>
+
+          <!-- type="button" est IMPORTANT : sans lui, un clic enverrait le formulaire
+               et rechargerait la page. -->
+          <button type="button" id="btn-ajouter-projet"
+                  class="w-full rounded-lg border-2 border-dashed border-slate-300 py-2 text-sm
+                         text-slate-600 hover:border-indigo-400 hover:text-indigo-600">
+            + Ajouter un projet
+          </button>
+        </fieldset>
+
+        <!-- ---------- Section : Contact ---------- -->
+        <fieldset class="space-y-3">
+          <legend class="font-semibold text-lg mb-2">📬 Contact</legend>
+
+          <label class="block">
+            <span class="text-sm font-medium">Email</span>
+            <input name="email" type="email" placeholder="exemple@gmail.com"
+                   class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2
+                          focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+          </label>
+
+          <label class="block">
+            <span class="text-sm font-medium">Téléphone</span>
+            <input name="telephone" type="tel" placeholder="+237 6XX XX XX XX"
+                   class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2
+                          focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+          </label>
+
+          <label class="block">
+            <span class="text-sm font-medium">GitHub (lien)</span>
+            <input name="github" type="url" placeholder="https://github.com/votre-pseudo"
+                   class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2
+                          focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+          </label>
+
+          <label class="block">
+            <span class="text-sm font-medium">LinkedIn (lien)</span>
+            <input name="linkedin" type="url" placeholder="https://linkedin.com/in/votre-profil"
+                   class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2
+                          focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+          </label>
+        </fieldset>
+
+        <!-- Bouton pour tout effacer -->
+        <button type="button" id="btn-reinitialiser"
+                class="w-full rounded-lg bg-slate-100 py-2 text-sm text-slate-600 hover:bg-slate-200">
+          Réinitialiser le formulaire
+        </button>
+      </form>
+
+      <!-- ===================== APERÇU + BOUTONS ===================== -->
+      <section class="space-y-4 print:space-y-0">
+
+        <!-- Barre de boutons (cachée dans le PDF grâce à print:hidden) -->
+        <div class="flex flex-wrap gap-3 print:hidden">
+          <button type="button" id="btn-changer"
+                  class="flex-1 sm:flex-none rounded-lg bg-indigo-600 px-5 py-2.5 font-medium text-white
+                         shadow-sm hover:bg-indigo-700 active:scale-95 transition">
+            🎲 Changer de modèle
+          </button>
+          <button type="button" id="btn-pdf"
+                  class="flex-1 sm:flex-none rounded-lg bg-emerald-600 px-5 py-2.5 font-medium text-white
+                         shadow-sm hover:bg-emerald-700 active:scale-95 transition">
+            📄 Exporter en PDF
+          </button>
+        </div>
+
+        <!-- Message d'erreur (affiché si le nom ou le titre manque lors de l'export) -->
+        <p id="message-erreur" class="hidden rounded-lg bg-red-50 px-4 py-2 text-sm text-red-700 print:hidden"></p>
+
+        <!-- C'est ICI que le portfolio est affiché en direct.
+             main.js remplace son contenu à chaque modification du formulaire. -->
+        <div id="apercu" class="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm"></div>
+      </section>
+    </main>
+
+    <!-- Le script principal. type="module" permet d'utiliser "import" / "export". -->
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

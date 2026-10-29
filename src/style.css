@@ -1,0 +1,44 @@
+/* =====================================================================
+   style.css — Feuille de style principale
+   ---------------------------------------------------------------------
+   Avec Tailwind CSS, on écrit très peu de CSS : presque tout le style
+   se fait directement dans le HTML avec des classesn (ex : "p-4 rounded").
+   Ce fichier contient seulement l'import de Tailwind et quelques
+   règles spéciales pour l'impression (export PDF).
+   ===================================================================== */
+
+/* Cette ligne importe tout Tailwind CSS (version 4).
+   Le plugin Vite remplacera cette ligne par le CSS réellement utilisé. */
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------
+   Règles appliquées UNIQUEMENT à l'impression (et donc à l'export PDF)
+   --------------------------------------------------------------------- */
+@media print {
+  /* Par défaut, les navigateurs n'impriment pas les couleurs de fond
+     (pour économiser l'encre). Ces deux lignes les forcent à les garder,
+     sinon les modèles "dark" ou colorés seraient tout blancs dans le PDF. */
+  * {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  /* On enlève la bordure et l'arrondi de la zone d'aperçu :
+     dans le PDF, seul le portfolio doit apparaître, sans cadre. */
+  #apercu {
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+
+  /* On évite qu'une carte (projet, compétence…) soit coupée en deux
+     entre deux pages du PDF. */
+  .no-break {
+    break-inside: avoid;
+  }
+}
+
+/* Marges de la page PDF (0 = le portfolio occupe toute la page) */
+@page {
+  margin: 0;
+}

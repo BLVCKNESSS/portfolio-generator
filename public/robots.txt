@@ -1,0 +1,37 @@
+# =====================================================================
+# robots.txt — Instructions pour les robots des moteurs de recherche
+# ---------------------------------------------------------------------
+# Ce fichier est lu par les robots (Googlebot, Bingbot…) AVANT qu'ils
+# explorent le site. Il leur dit quelles pages ils ont le droit de visiter.
+#
+# Emplacement : il DOIT être à la racine du site en ligne :
+#   https://portfolio-generator.vercel.app/robots.txt
+# Vite copie automatiquement le dossier "public/" à la racine de "dist/",
+# donc le placer dans public/ suffit.
+#
+# ⚠️ Important : robots.txt ne fait PAS monter un site dans Google.
+# Il sert à guider les robots et à leur indiquer le sitemap.
+# Le classement dépend surtout du contenu et des balises <meta>
+# (voir index.html) et du sitemap.xml.
+#
+# Les lignes qui commencent par "#" sont des commentaires : les robots les ignorent.
+# =====================================================================
+
+# "User-agent: *" = les règles qui suivent s'appliquent à TOUS les robots.
+User-agent: *
+
+# "Allow: /" = le robot a le droit d'explorer tout le site.
+# Notre site n'a qu'une page publique : on veut qu'elle soit explorée.
+Allow: /
+
+# "Disallow:" = les dossiers que les robots ne doivent PAS explorer.
+# Ces dossiers n'existent pas sur le site en ligne (Vercel ne publie
+# que dist/), mais on les bloque par précaution pour éviter que du code
+# source soit indexé si la configuration change un jour.
+Disallow: /src/
+Disallow: /node_modules/
+
+# Adresse complète du plan du site (sitemap).
+# Elle permet aux moteurs de recherche de trouver toutes les pages.
+# ➜ REMPLACEZ l'adresse par celle que Vercel vous a donnée.
+Sitemap: https://portfolio-generator.vercel.app/sitemap.xml
